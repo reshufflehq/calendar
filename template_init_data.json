@@ -1,0 +1,34 @@
+{
+    "items": [
+        {
+            "key": "/events/DY1cscbWCk3F4_ZUakA3B",
+            "data": {
+                "id": "DY1cscbWCk3F4_ZUakA3B",
+                "title": "Yoga Class",
+                "start": "2019-12-20",
+                "end": "",
+                "description": ""
+            }
+        },
+        {
+            "key": "/events/TrNYisRbJpUZfAGfF4lZ",
+            "data": {
+                "id": "TrNYisRbJpUZfAGfF4lZ",
+                "title": "R&D Meeting",
+                "start": "2019-12-25T10:30:00",
+                "end": "2019-12-25T12:30:00",
+                "description": "Welcome new members"
+            }
+        },
+        {
+            "key": "/events/YIv1_MrY_0EibooqGWQSO",
+            "data": {
+                "id": "YIv1_MrY_0EibooqGWQSO",
+                "title": "Next Week Planning",
+                "start": "2019-12-30",
+                "end": "",
+                "description": ""
+            }
+        }
+    ]
+}
