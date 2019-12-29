@@ -1,32 +1,32 @@
 {
     "items": [
         {
-            "key": "/events/DY1cscbWCk3F4_ZUakA3B",
+            "key": "events/DY1cscbWCk3F4_ZUakA3B",
             "data": {
                 "id": "DY1cscbWCk3F4_ZUakA3B",
                 "title": "Yoga Class",
-                "start": "2019-12-20",
-                "end": "",
+                "start": "2020-01-20T10:30:00Z",
+                "end": "2020-01-20T12:30:00Z",
                 "description": ""
             }
         },
         {
-            "key": "/events/TrNYisRbJpUZfAGfF4lZ",
+            "key": "events/TrNYisRbJpUZfAGfF4lZ",
             "data": {
                 "id": "TrNYisRbJpUZfAGfF4lZ",
                 "title": "R&D Meeting",
-                "start": "2019-12-25T10:30:00",
-                "end": "2019-12-25T12:30:00",
+                "start": "2020-01-25T10:30:00Z",
+                "end": "2020-01-25T12:30:00Z",
                 "description": "Welcome new members"
             }
         },
         {
-            "key": "/events/YIv1_MrY_0EibooqGWQSO",
+            "key": "events/YIv1_MrY_0EibooqGWQSO",
             "data": {
                 "id": "YIv1_MrY_0EibooqGWQSO",
                 "title": "Next Week Planning",
-                "start": "2019-12-30",
-                "end": "",
+                "start": "2020-01-15T10:30:00Z",
+                "end": "2020-01-15T12:30:00Z",
                 "description": ""
             }
         }

@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Box } from '@material-ui/core';
 import useStyle from './UseStyle';
 
 const mutation = gql`
@@ -50,27 +50,33 @@ function EventDialog(props) {
         </DialogTitle>
       </Grid>
       <Grid container alignItems='flex-end' direction='row'>
-        <Grid item className='dateRow'>
+        <Grid item className={classes.dateRow}>
           <DialogContent>
             {selectedEvent
-              ? selectedEvent.event.start.toLocaleDateString()
+              ? `${selectedEvent.event.start.toLocaleDateString('en-us', {
+                  weekday: 'long',
+                  month: 'long',
+                  day: 'numeric',
+                })}`
               : ''}
           </DialogContent>
         </Grid>
-        <Grid>,</Grid>
-        <Grid item>
+        <Box className={classes.dot}>•</Box>
+        <Grid>
           <DialogContent>
             {selectedEvent && selectedEvent.event.start
-              ? selectedEvent.event.start.toLocaleTimeString()
-              : 'no start time'}
-          </DialogContent>
-        </Grid>
-        <Grid>-</Grid>
-        <Grid item>
-          <DialogContent>
+              ? selectedEvent.event.start.toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })
+              : 'no start time'}{' '}
+            -{' '}
             {selectedEvent && selectedEvent.event.end
-              ? selectedEvent.event.end.toLocaleTimeString()
-              : 'no end time'}
+              ? selectedEvent.event.end.toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })
+              : ''}
           </DialogContent>
         </Grid>
       </Grid>
@@ -83,15 +89,28 @@ function EventDialog(props) {
         }
       >
         <DialogContent>
-          Description:{' '}
           {selectedEvent
             ? selectedEvent.event.extendedProps.description
             : 'no description'}
         </DialogContent>
       </Grid>
-      <Button variant='contained' color='secondary' onClick={handleClick}>
-        Delete Event
-      </Button>
+      <Box
+        className={[
+          classes.paddingItem,
+          classes.paddingRight,
+          classes.paddingBottom,
+        ].join(' ')}
+        display='flex'
+        flexDirection='row'
+        justifyContent='space-between'
+      >
+        <Button variant='contained' color='secondary' onClick={handleClick}>
+          Delete Event
+        </Button>
+        <Button variant='contained' color='primary' onClick={handleClose}>
+          Cancel
+        </Button>
+      </Box>
     </Dialog>
   );
 }
