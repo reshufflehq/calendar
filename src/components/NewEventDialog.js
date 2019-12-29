@@ -104,7 +104,7 @@ function NewEventDialog(props) {
               type='time'
               label='Start Time'
               defaultValue='07:30'
-              inputRef={register({ required: false })}
+              inputRef={register({ required: true, minLength: 1 })}
             />
           </Grid>
           <Grid
@@ -117,23 +117,30 @@ function NewEventDialog(props) {
               type='time'
               label='End Time'
               defaultValue='10:30'
-              inputRef={register({ required: false })}
+              inputRef={register({ required: true, minLength: 1 })}
             />
           </Grid>
         </Grid>
         <Box
-          className={[classes.paddingItem, classes.paddingRight].join(' ')}
+          className={[
+            classes.paddingItem,
+            classes.paddingBottom,
+            classes.paddingRight,
+          ].join(' ')}
           display='flex'
           flexDirection='row'
           justifyContent='space-between'
         >
-          <Button color='primary' type='submit' disabled={loading}>
-            {' '}
-            Save{' '}
+          <Button
+            variant='contained'
+            color='primary'
+            type='submit'
+            disabled={loading}
+          >
+            Save
           </Button>
-          <Button onClick={handleClose} color='primary'>
-            {' '}
-            Cancel{' '}
+          <Button variant='contained' onClick={handleClose} color='primary'>
+            Cancel
           </Button>
         </Box>
       </form>

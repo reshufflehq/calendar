@@ -28,7 +28,6 @@ const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState();
 
   const handleClickOpen = selectedEvent => {
-    console.log(selectedEvent);
     setSelectedEvent(selectedEvent);
     setOpenEvent(true);
   };
