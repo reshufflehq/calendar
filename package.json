@@ -48,7 +48,7 @@
     "build": "cross-env EXTEND_ESLINT=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint backend --fix && eslint src --fix",
+    "lint": "eslint backend --fix && eslint src --fix && stylelint 'src/**/*.{css,scss}'",
     "check-prettier": "prettier --ignore-path .gitignore -c '**/*.{js,jsx}'"
   },
   "browserslist": {

@@ -35,26 +35,22 @@ function NewEventDialog(props) {
   const { onClose, open, selectedDate } = props;
   const classes = useStyle();
 
-  const handleClose = () => {
-    onClose();
-  };
   const { handleSubmit, register, errors } = useForm();
   const [addEvent, { loading, error }] = useMutation(mutation);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onSubmit = useCallback(
-    ({ title, description, date, startTime, endTime }) => [
+    ({ title, description, date, startTime, endTime }) => {
       addEvent({
         variables: {
           title,
-          start: startTime ? date + 'T' + startTime : date,
-          end: endTime ? date + 'T' + endTime : '',
+          start: new Date(date + ' ' + startTime).toISOString(),
+          end: new Date(date + ' ' + endTime).toISOString(),
           description: description ? description : '',
         },
-      }),
-      [addEvent],
-      handleClose(),
-    ]
+      });
+      onClose();
+    },
+    [addEvent, onClose]
   );
 
   if (loading) return <div>Loading...</div>;
@@ -139,7 +135,7 @@ function NewEventDialog(props) {
           >
             Save
           </Button>
-          <Button variant='contained' onClick={handleClose} color='primary'>
+          <Button variant='contained' onClick={onClose} color='primary'>
             Cancel
           </Button>
         </Box>
@@ -153,4 +149,4 @@ NewEventDialog.propTypes = {
   open: PropTypes.bool.isRequired,
 };
 
-export default NewEventDialog;
+export default React.memo(NewEventDialog);
