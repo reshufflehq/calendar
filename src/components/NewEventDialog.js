@@ -6,8 +6,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { TextField, Button, Grid, Box } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
-
 import useStyle from './UseStyle';
+
+const { DateTime } = require('luxon');
 
 const mutation = gql`
   mutation addEvent(
@@ -38,13 +39,18 @@ function NewEventDialog(props) {
   const { handleSubmit, register, errors } = useForm();
   const [addEvent, { loading, error }] = useMutation(mutation);
 
+  /* date format: yyyy-mm-dd, startTime/endTime: hh:mm.
+  * convert to string yyyy-mm-ddThh:mmZ
+  * parsing with Luxon (fromISO)  to format that supported by all browsers
+  */
+
   const onSubmit = useCallback(
     ({ title, description, date, startTime, endTime }) => {
       addEvent({
         variables: {
           title,
-          start: new Date(date + ' ' + startTime).toISOString(),
-          end: new Date(date + ' ' + endTime).toISOString(),
+          start: DateTime.fromISO(date + 'T' + startTime + 'Z'),
+          end: DateTime.fromISO(date + 'T' + endTime + 'Z'),
           description: description ? description : '',
         },
       });
