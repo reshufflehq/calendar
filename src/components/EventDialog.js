@@ -23,27 +23,17 @@ function EventDialog(props) {
 
   const classes = useStyle();
 
-  const handleClose = () => {
-    onClose();
-  };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleClick = useCallback(() => [
+  const handleClick = useCallback(() => {
     deleteEvent({
       variables: { id: selectedEvent ? selectedEvent.event.id : '' },
-    }),
-    [deleteEvent, selectedEvent],
-    handleClose(),
-  ]);
+    });
+    onClose();
+  }, [deleteEvent, selectedEvent, onClose]);
   if (loading) return <div>Loading...</div>;
   if (error) return <p>ERROR</p>;
 
   return (
-    <Dialog
-      onClose={handleClose}
-      aria-labelledby='simple-dialog-title'
-      open={open}
-    >
+    <Dialog aria-labelledby='simple-dialog-title' open={open}>
       <Grid item className={classes.dialogTitle}>
         <DialogTitle id='simple-dialog-title'>
           {selectedEvent ? selectedEvent.event.title : 'no title'}
@@ -107,7 +97,7 @@ function EventDialog(props) {
         <Button variant='contained' color='secondary' onClick={handleClick}>
           Delete Event
         </Button>
-        <Button variant='contained' color='primary' onClick={handleClose}>
+        <Button variant='contained' color='primary' onClick={onClose}>
           Cancel
         </Button>
       </Box>
@@ -120,4 +110,4 @@ EventDialog.propTypes = {
   open: PropTypes.bool.isRequired,
 };
 
-export default EventDialog;
+export default React.memo(EventDialog);

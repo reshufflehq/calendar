@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -26,26 +26,30 @@ const Calendar = () => {
   const [openNewEvent, setOpenNewEvent] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState();
   const [selectedDate, setSelectedDate] = useState();
+  const { data, loading, error, refetch } = useQuery(query, {
+    pollInterval: 1000,
+  });
 
-  const handleClickOpen = selectedEvent => {
+  const handleClickOpen = useCallback(selectedEvent => {
     setSelectedEvent(selectedEvent);
     setOpenEvent(true);
-  };
+  }, []);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpenEvent(false);
-  };
+    refetch();
+  }, [refetch]);
 
-  const handleClickOpenNewEvent = selectedDate => {
+  const handleClickOpenNewEvent = useCallback(selectedDate => {
     setSelectedDate(selectedDate);
     setOpenNewEvent(true);
-  };
+  }, []);
 
-  const handleCloseNewEvent = () => {
+  const handleCloseNewEvent = useCallback(() => {
     setOpenNewEvent(false);
-  };
+    refetch();
+  }, [refetch]);
 
-  const { data, loading, error } = useQuery(query, { pollInterval: 1000 });
   if (loading) return <div>Loading...</div>;
   if (error) return <p>ERROR</p>;
   const events = data.getEvents;

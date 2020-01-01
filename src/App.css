@@ -27,6 +27,7 @@
 
 .App-header {
   /* background-color: #282c34; */
+
   /* min-height: 100vh; */
   min-width: 50%;
   display: flex;
@@ -44,22 +45,26 @@
   align-items: center;
   padding-bottom: 4rem;
 }
+
 .App-link {
   color: #61dafb;
 }
 
 .App-section {
   /* display: flex; */
+
   /* flex-direction: column !important; */
   max-width: 50%;
 
   /* background-color: #282c34; */
+
   /* min-height: 30vh; */
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -20,6 +20,6 @@ export default gql`
       end: String!
       description: String!
     ): Event!
-    deleteEvent(id: ID!): [Event]!
+    deleteEvent(id: ID!): Event!
   }
 `;
