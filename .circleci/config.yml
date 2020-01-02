@@ -57,6 +57,9 @@ workflows:
       - lint:
           requires:
             - build
+      - check-prettier:
+          requires:
+            - build
       - unit-test:
           requires:
             - build
