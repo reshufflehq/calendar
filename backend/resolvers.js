@@ -16,10 +16,8 @@ export default {
       return event;
     },
     deleteEvent: async (_, { id }) => {
-      // const event = await find(Q.filter(Q.key.startsWith(`events/${id}`)));
       const event = await get(`events/${id}`);
       await remove(`events/${id}`);
-      // return event.map(({ value }) => value);
       return event;
     },
   },
