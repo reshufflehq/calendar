@@ -35,7 +35,7 @@ export const NewEventDialog = props => {
   const { onClose, open, selectedDate } = props;
   const classes = useStyle();
 
-  const { handleSubmit, register, errors } = useForm();
+  const { handleSubmit, register, errors, watch } = useForm();
   const [addEvent, { loading, error }] = useMutation(mutationAddEvent);
 
   /* date format: yyyy-mm-dd, startTime/endTime: hh:mm.
@@ -45,20 +45,11 @@ export const NewEventDialog = props => {
 
   const onSubmit = useCallback(
     ({ title, description, date, startTime, endTime }) => {
-      const startEvent = DateTime.fromISO(date + 'T' + startTime).setZone(
-        'UTC'
-      );
-      const endEvent = DateTime.fromISO(date + 'T' + endTime).setZone('UTC');
-      if (endEvent - startEvent <= 0) {
-        const timeErrror = document.getElementById('timeError');
-        timeErrror.style.display = 'block';
-        return new Error('End Time should be greater than Start Time');
-      }
       addEvent({
         variables: {
           title,
-          start: startEvent,
-          end: endEvent,
+          start: DateTime.fromISO(date + 'T' + startTime).setZone('UTC'),
+          end: DateTime.fromISO(date + 'T' + endTime).setZone('UTC'),
           description: description ? description : '',
         },
       });
@@ -114,7 +105,7 @@ export const NewEventDialog = props => {
               type='time'
               label='Start Time'
               defaultValue='07:30'
-              inputRef={register({ required: true, minLength: 1 })}
+              inputRef={register({ validate: (value) => value < watch('endTime'), required: true, minLength: 1 })}
             />
           </Grid>
           <Grid
@@ -127,8 +118,9 @@ export const NewEventDialog = props => {
               type='time'
               label='End Time'
               defaultValue='10:30'
-              inputRef={register({ required: true, minLength: 1 })}
+              inputRef={register({ validate: (value) => value > watch('startTime'), required: true, minLength: 1 })}
             />
+            {errors.endTime && errors.endTime.message}
           </Grid>
         </Grid>
         <Box
@@ -153,13 +145,6 @@ export const NewEventDialog = props => {
             Cancel
           </Button>
         </Box>
-        <Grid
-          item
-          id='timeError'
-          className={[classes.errorMsg, classes.hiddenItem].join(' ')}
-        >
-          End Time should be greater than Start Time
-        </Grid>
       </form>
     </Dialog>
   );
