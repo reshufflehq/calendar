@@ -7,10 +7,9 @@ import { TextField, Button, Grid, Box } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import useStyle from './UseStyle';
+import { DateTime } from 'luxon';
 
-const { DateTime } = require('luxon');
-
-const mutation = gql`
+export const mutationAddEvent = gql`
   mutation addEvent(
     $title: String!
     $start: String!
@@ -32,25 +31,34 @@ const mutation = gql`
   }
 `;
 
-function NewEventDialog(props) {
+export const NewEventDialog = props => {
   const { onClose, open, selectedDate } = props;
   const classes = useStyle();
 
   const { handleSubmit, register, errors } = useForm();
-  const [addEvent, { loading, error }] = useMutation(mutation);
+  const [addEvent, { loading, error }] = useMutation(mutationAddEvent);
 
   /* date format: yyyy-mm-dd, startTime/endTime: hh:mm.
-  * convert to string yyyy-mm-ddThh:mmZ
-  * parsing with Luxon (fromISO)  to format that supported by all browsers
-  */
+   * convert to string yyyy-mm-ddThh:mmZ
+   * parsing with Luxon (fromISO)  to format that supported by all browsers
+   */
 
   const onSubmit = useCallback(
     ({ title, description, date, startTime, endTime }) => {
+      const startEvent = DateTime.fromISO(date + 'T' + startTime).setZone(
+        'UTC'
+      );
+      const endEvent = DateTime.fromISO(date + 'T' + endTime).setZone('UTC');
+      if (endEvent - startEvent <= 0) {
+        const timeErrror = document.getElementById('timeError');
+        timeErrror.style.display = 'block';
+        return new Error('End Time should be greater than Start Time');
+      }
       addEvent({
         variables: {
           title,
-          start: DateTime.fromISO(date + 'T' + startTime + 'Z'),
-          end: DateTime.fromISO(date + 'T' + endTime + 'Z'),
+          start: startEvent,
+          end: endEvent,
           description: description ? description : '',
         },
       });
@@ -145,10 +153,17 @@ function NewEventDialog(props) {
             Cancel
           </Button>
         </Box>
+        <Grid
+          item
+          id='timeError'
+          className={[classes.errorMsg, classes.hiddenItem].join(' ')}
+        >
+          End Time should be greater than Start Time
+        </Grid>
       </form>
     </Dialog>
   );
-}
+};
 
 NewEventDialog.propTypes = {
   onClose: PropTypes.func.isRequired,

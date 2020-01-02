@@ -21,6 +21,10 @@ const useStyle = makeStyles(theme =>
     dot: {
       lineHeight: '2.5',
     },
+    errorMsg: {
+      textAlign: 'center',
+      backgroundColor: '#f50057',
+    },
   })
 );
 

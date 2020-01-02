@@ -10,7 +10,7 @@ import NewEventDialog from './components/NewEventDialog';
 
 import './main.scss';
 
-const query = gql`
+export const eventsList = gql`
   query GetEvents {
     getEvents {
       id
@@ -21,12 +21,12 @@ const query = gql`
     }
   }
 `;
-const Calendar = () => {
+export const Calendar = () => {
   const [openEvent, setOpenEvent] = useState(false);
   const [openNewEvent, setOpenNewEvent] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState();
   const [selectedDate, setSelectedDate] = useState();
-  const { data, loading, error, refetch } = useQuery(query, {
+  const { data, loading, error, refetch } = useQuery(eventsList, {
     pollInterval: 1000,
   });
 
