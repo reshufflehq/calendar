@@ -105,7 +105,11 @@ export const NewEventDialog = props => {
               type='time'
               label='Start Time'
               defaultValue='07:30'
-              inputRef={register({ validate: (value) => value < watch('endTime'), required: true, minLength: 1 })}
+              inputRef={register({
+                validate: value => value < watch('endTime'),
+                required: true,
+                minLength: 1,
+              })}
             />
           </Grid>
           <Grid
@@ -118,7 +122,11 @@ export const NewEventDialog = props => {
               type='time'
               label='End Time'
               defaultValue='10:30'
-              inputRef={register({ validate: (value) => value > watch('startTime'), required: true, minLength: 1 })}
+              inputRef={register({
+                validate: value => value > watch('startTime'),
+                required: true,
+                minLength: 1,
+              })}
             />
             {errors.endTime && errors.endTime.message}
           </Grid>

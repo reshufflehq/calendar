@@ -5,7 +5,6 @@ import './main.scss';
 export default () => {
   return (
     <div className='container-app'>
-      <div className='container-app-top'></div>
       <Calendar />
     </div>
   );
