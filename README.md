@@ -1,6 +1,6 @@
 ## Reshuffle Calendar
 
-reshuffle Calendar is a react app that uses Apollo GraphQL on reshuffle.
+Reshuffle Calendar is a react app that uses Apollo GraphQL on reshuffle.
 
 Demonstrates how to setup a full stack Apollo GraphQL client and server working with @reshuffle/db.
 
