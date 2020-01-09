@@ -1,12 +1,10 @@
-[![CircleCI](https://circleci.com/gh/reshufflehq/blank.svg?style=svg)](https://circleci.com/gh/reshufflehq/blank)
+## Reshuffle Calendar
 
-This is a [Reshuffle](https://reshuffle.com/) template.
+reshuffle Calendar is a react app that uses Apollo GraphQL on reshuffle.
 
-## About
+Demonstrates how to setup a full stack Apollo GraphQL client and server working with @reshuffle/db.
 
-A starting point for creating your app with Reshuffle.
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can add/remove events from the calendar by using @reshuffle/db.
 
 ## Screenshots
 
