@@ -1,3 +1,5 @@
+# We have terminated the backend for this project.  Old Reshuffle projects can no longer be deployed.
+
 ## Reshuffle Calendar
 
 Reshuffle Calendar is a react app that uses Apollo GraphQL on reshuffle.
